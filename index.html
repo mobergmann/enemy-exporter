@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tabletop RPG Enemy Exporter</title>
+    <title>Tabletop RPG - Enemy Maker</title>
 
     <style>
+        body {
+            max-width: 60rem;
+            margin: 0 auto;
+        }
+
         #import-keys {
             display: flex;
             flex-direction: column;
@@ -12,50 +17,52 @@
     </style>
 </head>
 <body>
-<script src="func1.js"></script>
+
+<script src="index_controller.js"></script>
+<script src="exporter.js"></script>
+
 
 <article id="import">
-    <h1>Enemy Creation</h1>
+    <h1>Tabletop RPG - Enemy Maker</h1>
 
-    <fieldset>
-        <label>
-            Name
-            <input type="text" placeholder="Name">
-        </label>
-
-        <label>
-            Beschreibung
-            <textarea placeholder="Beschreibung"></textarea>
-        </label>
-
-        <label>
-            Bild
-            <input type="file">
-        </label>
-
+    <form action="#">
         <fieldset>
-            <h1>Attribut(e)</h1>
-            <input type="button" value="+" onclick="addButton()">
-            <div id="import-keys"></div>
-        </fieldset>
+            <div>
+                <label>
+                    Name
+                    <input type="text" placeholder="Name" id="in_name">
+                </label>
 
-        <input type="submit" value="Exportieren">
-    </fieldset>
+                <label>
+                    Description
+                    <textarea placeholder="Description" id="in_description"></textarea>
+                </label>
+
+                <label>
+                    Image
+                    <input type="file" id="in_image">
+                </label>
+            </div>
+
+            <fieldset id="in_attributes-container">
+                <h1>Attributes</h1>
+                <input type="button" value="+" onclick="addButton()">
+                <div id="in_attributes"></div>
+            </fieldset>
+
+            <input type="submit" value="Export" onclick="_export()">
+            <input type="reset">
+        </fieldset>
+    </form>
 </article>
+
+<hr>
+<input type="button" value="Clear" onclick="_clear()">
 
 <article id="export"></article>
 
-<template id="template-export">
-    <h1></h1>
 
-    <img src="" alt="image"/>
-
-    <!--Holding all values-->
-    <div></div>
-
-</template>
-
-<template id="template-key_value">
+<template id="template-in-attribute">
     <div>
         <input type="text" placeholder="Key">
         <input type="text" placeholder="Value">

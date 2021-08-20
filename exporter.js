@@ -93,3 +93,12 @@ function _export() {
     // display result
     _display(input);
 }
+
+function save_fo_file() {
+    const elem = document.getElementById("export");
+
+    html2canvas(elem).then(function(canvas) {        
+        document.body.appendChild(canvas);
+        // todo data save dialouge
+    });
+}

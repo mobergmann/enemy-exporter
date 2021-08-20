@@ -15,7 +15,7 @@
             flex-direction: column;
         }
 
-        #export {
+        .export-container {
             border: 1px solid black;
             border-radius: 5px;
         }
@@ -25,6 +25,8 @@
 
 <script src="index_controller.js"></script>
 <script src="exporter.js"></script>
+
+<script src="include/tmp/html2canvas.min.js"></script>
 
 <!-- Input -->
 <article>
@@ -65,7 +67,18 @@
 
 <!-- Export -->
 <input type="button" value="Clear" onclick="_clear()">
-<article id="export"></article>
+<div class="export-container">
+    <article id="export"></article>
+</div>
+<fieldset>
+    <input type="button" value="Save" onclick="save_fo_file()">
+    <select>
+        <option>PNG</option>
+        <option>JPG</option>
+        <option>GIF</option>
+        <option>PDF</option>
+    </select>
+</fieldset>
 
 <!-- Templates -->
 <template id="template-in-attribute">

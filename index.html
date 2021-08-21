@@ -37,17 +37,28 @@
 </head>
 <body>
 
-<script src="index_controller.js"></script>
-<script src="exporter.js"></script>
-
 <script src="include/html2canvas.min.js"></script>
 
-<!-- Input -->
-<article>
-    <h1>Tabletop RPG - Enemy Maker</h1>
+<!--Registering Button Clicks-->
+<script type="module">
+    import {exportSheet} from './modules/exporter.js';
+    import {addButton} from "./modules/index_controller.js";
 
+    window.exportSheet = exportSheet;
+    window.addButton = addButton;
+</script>
+
+
+<header>
+    <h1>Tabletop RPG - Enemy Maker</h1>
+    <p>Enter the statistics of your Enemy and export it as an image.</p>
+</header>
+
+<!-- Input -->
+<article id="input">
     <form action="#">
         <fieldset>
+            <legend>Input</legend>
             <div>
                 <label>
                     Name
@@ -66,46 +77,51 @@
             </div>
 
             <fieldset>
-                <h1>Attributes</h1>
+                <legend>Attributes</legend>
                 <input type="button" value="+" onclick="addButton()">
                 <div id="in_attributes"></div>
             </fieldset>
 
-            <input type="submit" value="Export" onclick="_export()">
+            <div>
+                <input type="submit" value="Export" onclick="exportSheet()">
+
+                <!--
+                <label>
+                    Format
+                    <select>
+                        <option value="png">PNG</option>
+                        <option value="svg">SVG</option>
+                        <option value="jpg">JPG</option>
+                        <option value="pdf">PDF</option>
+                        <option value="gif">GIF</option>
+                    </select>
+                </label>
+                -->
+            </div>
             <input type="reset">
         </fieldset>
     </form>
 </article>
+
 <hr>
 
-<!-- Export -->
-<input type="button" value="Clear" onclick="_clear()">
-<div class="export-container">
-    <article id="export"></article>
+<div>
+    <fieldset>
+        <legend>Export</legend>
+        <div id="export"></div>
+    </fieldset>
 </div>
-<fieldset>
-    <input type="button" value="Save" onclick="save_fo_file()">
-    <label>
-        Format
-        <select>
-            <option>PNG</option>
-            <option>JPG</option>
-            <option>GIF</option>
-            <option>PDF</option>
-        </select>
-    </label>
-</fieldset>
 
 <!-- Templates -->
 <template id="template-in-attribute">
     <div>
         <label>
             Key
-            <input type="text" placeholder="Key">
+            <input class="in-attribute-key" type="text" placeholder="Key">
         </label>
         <label>
             Value
-            <input type="text" placeholder="Value">
+            <input class="in-attribute-value" type="text" placeholder="Value">
         </label>
     </div>
 </template>

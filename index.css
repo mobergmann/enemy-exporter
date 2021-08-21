@@ -3,9 +3,28 @@ body {
     margin: 0 auto;
     padding: 1rem;
     font-family: sans-serif;
+    color: #333;
+
+    min-height: 100vh;
 }
 
 article {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+footer {
+    margin-top: 5rem;
+
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+
+    position: relative;
+    bottom: 0;
+}
+
+footer a {
+    text-decoration: none;
+    color: orange;
 }

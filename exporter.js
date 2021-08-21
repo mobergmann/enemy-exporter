@@ -15,7 +15,7 @@ class Sheet {
 }
 
 
-function _parse_input() {
+function _parse() {
     const sheet = new Sheet();
 
     sheet.name = document.getElementById("in_name").value;
@@ -39,64 +39,60 @@ function _parse_input() {
 }
 
 function _display(sheet) {
-    const container = document.getElementById("export");
+    const template = document.getElementById("t-export");
+    const container = template.content.cloneNode(true);
 
-    // clear export
-    container.innerHTML = null;
+    // name
+    const nameElem = container.querySelector(".export-name");
+    nameElem.innerHTML = sheet.name;
 
-    // set references
-    {
-        // name
-        const nameNode = document.createElement("h1");
-        nameNode.innerHTML = sheet.name;
-        nameNode.disabled = true;
-        container.appendChild(nameNode);
+    // description
+    const descriptionElem = container.querySelector(".export-description");
+    descriptionElem.innerHTML = sheet.description;
 
-        // description
-        const descriptionNode = document.createElement("div");
-        descriptionNode.innerHTML = sheet.description;
-        descriptionNode.disabled = true;
-        container.appendChild(descriptionNode);
+    // image
+    const imageElem = container.querySelector(".export-image");
+    imageElem.src = sheet.description;
 
-        // image
-        const imageNode = document.createElement("img");
-        imageNode.src = sheet.image;
-        imageNode.disabled = true;
-        container.appendChild(imageNode);
+    // attributes
+    const attributesElem = container.querySelector(".export-image");
+    for (let i = 0; i < sheet.attributes.length; ++i) {
+        const attribute = sheet.attributes[i];
 
-        // attributes
-        const attributeNode = document.createElement('div');
-        for (let i = 0; i < sheet.attributes.length; ++i) {
-            const attribute = sheet.attributes[i];
+        const attributeElem = container.querySelector(".export-attributes");
 
-            const container = document.createElement("div");
+        const attributeTemplate = document.getElementById("t-export-attribute");
+        const clone = attributeTemplate.cloneNode(true);
 
-            const keyNode = document.createElement("div");
-            keyNode.innerHTML = attribute.key;
-            container.appendChild(keyNode);
+        const keyElem = clone.querySelector(".attribute-key");
+        keyElem.innerHTML = attribute.key;
 
-            const valueNode = document.createElement("div");
-            valueNode.innerHTML = attribute.value;
-            container.appendChild(valueNode);
+        const valueElem = clone.querySelector(".attribute-value");
+        valueElem.innerHTML = attribute.value;
 
-            attributeNode.appendChild(container);
-        }
-        container.appendChild(attributeNode);
+        attributeElem.appendChild(clone);
     }
+
+    container.appendChild(attributesElem);
+
+    return container;
 }
 
 
 function _export() {
     // parse input
-    const input = _parse_input();
+    const input = _parse();
 
     // display result
-    _display(input);
+    const elem = _display(input);
+
+    const exp = document.getElementById("export");
+    exp.appendChild(elem);
+    save_fo_file(exp);
+    exp.innerHTML = null;
 }
 
-function save_fo_file() {
-    const elem = document.getElementById("export");
-
+function save_fo_file(elem) {
     html2canvas(elem).then(function(canvas) {
         // source https://stackoverflow.com/a/58652379/11186407
         let downloadLink = document.createElement('a');

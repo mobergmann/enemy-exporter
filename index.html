@@ -11,15 +11,28 @@
             padding: 1rem;
         }
 
-        #import-keys {
-            display: flex;
-            flex-direction: column;
-        }
-
         .export-container {
             border: 1px solid black;
             border-radius: 5px;
         }
+
+        #export {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .export-attribute-list {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .export-attribute-list div {
+            margin: .25rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+
     </style>
 </head>
 <body>
@@ -63,7 +76,6 @@
         </fieldset>
     </form>
 </article>
-
 <hr>
 
 <!-- Export -->
@@ -87,14 +99,35 @@
 <!-- Templates -->
 <template id="template-in-attribute">
     <div>
-        <input type="text" placeholder="Key">
-        <input type="text" placeholder="Value">
+        <label>
+            Key
+            <input type="text" placeholder="Key">
+        </label>
+        <label>
+            Value
+            <input type="text" placeholder="Value">
+        </label>
     </div>
 </template>
 
-<template id="template-out_header"></template>
-<template id="template-out_export"></template>
-<template id="template-out_attribute"></template>
+<template id="t-export">
+    <div>
+        <h1 class="export-name"></h1>
+        <p class="export-description"></p>
+    </div>
+
+    <div>
+        <div class="export-image"></div>
+        <div class="export-attributes"></div>
+    </div>
+</template>
+
+<template id="t-export-attribute">
+    <div class="attribute-container">
+        <div class="attribute-key"></div>
+        <div class="attribute-value"></div>
+    </div>
+</template>
 
 </body>
 </html>

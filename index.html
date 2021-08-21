@@ -8,6 +8,7 @@
         body {
             max-width: 60rem;
             margin: 0 auto;
+            padding: 1rem;
         }
 
         #import-keys {
@@ -26,7 +27,7 @@
 <script src="index_controller.js"></script>
 <script src="exporter.js"></script>
 
-<script src="include/tmp/html2canvas.min.js"></script>
+<script src="include/html2canvas.min.js"></script>
 
 <!-- Input -->
 <article>
@@ -72,12 +73,15 @@
 </div>
 <fieldset>
     <input type="button" value="Save" onclick="save_fo_file()">
-    <select>
-        <option>PNG</option>
-        <option>JPG</option>
-        <option>GIF</option>
-        <option>PDF</option>
-    </select>
+    <label>
+        Format
+        <select>
+            <option>PNG</option>
+            <option>JPG</option>
+            <option>GIF</option>
+            <option>PDF</option>
+        </select>
+    </label>
 </fieldset>
 
 <!-- Templates -->

@@ -97,8 +97,15 @@ function _export() {
 function save_fo_file() {
     const elem = document.getElementById("export");
 
-    html2canvas(elem).then(function(canvas) {        
-        document.body.appendChild(canvas);
-        // todo data save dialouge
+    html2canvas(elem).then(function(canvas) {
+        // source https://stackoverflow.com/a/58652379/11186407
+        let downloadLink = document.createElement('a');
+        downloadLink.setAttribute('download', 'CanvasAsImage.png');
+
+        canvas.toBlob(function(blob) {
+            let url = URL.createObjectURL(blob);
+            downloadLink.setAttribute('href', url);
+            downloadLink.click();
+        });
     });
 }

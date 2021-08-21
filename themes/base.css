@@ -8,8 +8,6 @@
 
 
 #export .export-head {
-    /*display: flex;*/
-    /*flex-direction: row;*/
 }
 
 #export .export-head .export-name {
@@ -34,6 +32,7 @@
 #export .export-body .export-attributes {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 #export .export-body .export-attributes .attribute-container {

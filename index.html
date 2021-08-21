@@ -14,10 +14,12 @@
 
 <!--Registering Button Clicks-->
 <script type="module">
-    import {exportSheet} from './modules/exporter.js';
+    import {generateSheet} from './modules/exporter.js';
+    import {saveSheet} from './modules/exporter.js';
     import {addButton} from "./modules/index_controller.js";
 
-    window.exportSheet = exportSheet;
+    window.generateSheet = generateSheet;
+    window.saveSheet = saveSheet;
     window.addButton = addButton;
 </script>
 
@@ -45,7 +47,7 @@
 
                 <label>
                     Image
-                    <input type="file" id="in_image">
+                    <input type="file" accept="image/*" id="in_image">
                 </label>
             </div>
 
@@ -54,11 +56,12 @@
                 <input type="button" value="+" onclick="addButton()">
                 <div id="in_attributes"></div>
             </fieldset>
+        </fieldset>
 
+        <div>
             <div>
-                <input type="submit" value="Export" onclick="exportSheet()">
+                <input type="submit" value="Export" onclick="generateSheet()">
 
-                <!--
                 <label>
                     Format
                     <select>
@@ -69,10 +72,10 @@
                         <option value="gif">GIF</option>
                     </select>
                 </label>
-                -->
             </div>
+
             <input type="reset">
-        </fieldset>
+        </div>
     </form>
 </article>
 
@@ -84,6 +87,7 @@
         <legend>Export</legend>
         <div id="export"></div>
     </fieldset>
+    <input type="button" value="Save" onclick="saveSheet()">
 </article>
 
 <!-- Templates -->
@@ -107,7 +111,7 @@
     </div>
 
     <div class="export-body">
-        <div class="export-image"></div>
+        <img src="" class="export-image">
         <div class="export-attributes"></div>
     </div>
 </template>

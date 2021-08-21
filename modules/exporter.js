@@ -50,7 +50,14 @@ function writeDisplay(sheet) {
 
     // image
     const imageElem = elem.querySelector(".export-image");
-    imageElem.src = sheet.description;
+    // imageElem.src = sheet.image.src;
+    if (sheet.image) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(sheet.image);
+        fileReader.addEventListener("load", function () {
+            imageElem.src = this.result; //'<img src="' +  + '" />';
+        });
+    }
 
     // attributes
     const attributesContainer = elem.querySelector(".export-attributes");
@@ -70,7 +77,22 @@ function writeDisplay(sheet) {
     return elem;
 }
 
-function saveToFile(elem) {
+export function generateSheet() {
+    // parse input
+    const input = readInput();
+
+    // display result
+    const elem = writeDisplay(input);
+
+    // we need to render the canvas before we can hide it
+    const exp = document.getElementById("export");
+    exp.innerHTML = null;
+    exp.appendChild(elem);
+}
+
+export function saveSheet() {
+    const elem = document.getElementById("export");
+
     html2canvas(elem).then(function(canvas) {
         // source https://stackoverflow.com/a/58652379/11186407
         let downloadLink = document.createElement('a');
@@ -84,16 +106,3 @@ function saveToFile(elem) {
     });
 }
 
-export function exportSheet() {
-    // parse input
-    const input = readInput();
-
-    // display result
-    const elem = writeDisplay(input);
-
-    // we need to render the canvas before we can hide it
-    const exp = document.getElementById("export");
-    exp.innerHTML = null;
-    exp.appendChild(elem);
-    saveToFile(exp);
-}

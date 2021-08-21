@@ -14,12 +14,7 @@ class Sheet {
     }
 }
 
-/**
- *
- * @returns {Sheet}
- * @private
- */
-function _parse() {
+function readInput() {
     const sheet = new Sheet();
 
     sheet.name = document.getElementById("in_name").value;
@@ -41,13 +36,7 @@ function _parse() {
     return sheet;
 }
 
-/**
- *
- * @param sheet
- * @returns {Node}
- * @private
- */
-function _display(sheet) {
+function writeDisplay(sheet) {
     const template = document.getElementById("t-export");
     const elem = template.content.cloneNode(true);
 
@@ -59,9 +48,9 @@ function _display(sheet) {
     const descriptionElem = elem.querySelector(".export-description");
     descriptionElem.innerHTML = sheet.description;
 
-    // image todo
-    // const imageElem = elem.querySelector(".export-image");
-    // imageElem.src = sheet.description;
+    // image
+    const imageElem = elem.querySelector(".export-image");
+    imageElem.src = sheet.description;
 
     // attributes
     const attributesContainer = elem.querySelector(".export-attributes");
@@ -69,33 +58,19 @@ function _display(sheet) {
         const aTemplate = document.getElementById("t-export-attribute");
         const clone = aTemplate.content.cloneNode(true);
 
-        // const container = clone.querySelector(".attribute-container");
-
         const keyElem = clone.querySelector(".attribute-key");
         keyElem.innerHTML = attribute.key;
-        // container.appendChild(keyElem);
 
         const valueElem = clone.querySelector(".attribute-value");
         valueElem.innerHTML = attribute.value;
-        // container.appendChild(valueElem);
-
-        // clone.appendChild(container);
 
         attributesContainer.appendChild(clone);
     });
-    // for (let i = 0; i < sheet.attributes.length; ++i) {
-    // }
-
-    elem.appendChild(attributesContainer);
 
     return elem;
 }
 
-/**
- *
- * @param elem
- */
-function _save_fo_file(elem) {
+function saveToFile(elem) {
     html2canvas(elem).then(function(canvas) {
         // source https://stackoverflow.com/a/58652379/11186407
         let downloadLink = document.createElement('a');
@@ -109,20 +84,16 @@ function _save_fo_file(elem) {
     });
 }
 
-/**
- *
- * @private
- */
 export function exportSheet() {
     // parse input
-    const input = _parse();
+    const input = readInput();
 
     // display result
-    const elem = _display(input);
+    const elem = writeDisplay(input);
 
     // we need to render the canvas before we can hide it
     const exp = document.getElementById("export");
     exp.innerHTML = null;
     exp.appendChild(elem);
-    _save_fo_file(exp);
+    saveToFile(exp);
 }

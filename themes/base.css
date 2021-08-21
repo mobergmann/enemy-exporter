@@ -1,0 +1,48 @@
+#export {
+    display: flex;
+    flex-direction: column;
+    font-family: cursive;
+}
+
+
+
+#export .export-head {
+    /*display: flex;*/
+    /*flex-direction: row;*/
+}
+
+#export .export-head .export-name {
+}
+
+#export .head .export-description {
+}
+
+
+
+#export .export-body .export-image {
+    height: 100%;
+    width: auto;
+}
+
+
+#export .export-body .export-attributes {
+    display: flex;
+    flex-direction: row;
+}
+
+#export .export-body .export-attributes .attribute-container {
+    display: flex;
+    flex-direction: column;
+
+}
+
+#export .export-body .export-attributes .attribute-container .attribute-key {
+    border: 1px black solid;
+    padding: 0.25rem;
+    font-weight: bold;
+}
+
+#export .export-body .export-attributes .attribute-container .attribute-value {
+    border: 1px black solid;
+    padding: 0.25rem;
+}

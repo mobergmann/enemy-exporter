@@ -14,13 +14,13 @@
 
 <!--Registering Button Clicks-->
 <script type="module">
-    import {generateSheet} from './modules/exporter.js';
-    import {saveSheet} from './modules/exporter.js';
-    import {addButton} from "./modules/index_controller.js";
+    import {generateSheet,saveSheet} from './modules/exporter.js';
+    import {addButton,deleteAttribute} from "./modules/index_controller.js";
 
     window.generateSheet = generateSheet;
     window.saveSheet = saveSheet;
     window.addButton = addButton;
+    window.deleteAttribute = deleteAttribute;
 </script>
 
 
@@ -78,7 +78,7 @@
 
 <!-- Templates -->
 <template id="template-in-attribute">
-    <div>
+    <div class="in-attribute-container">
         <label>
             Key
             <input class="in-attribute-key" type="text" placeholder="Key">
@@ -87,6 +87,10 @@
             Value
             <input class="in-attribute-value" type="text" placeholder="Value">
         </label>
+
+        <button onclick="deleteAttribute(this)">
+            <img src="images/icons/delete.svg" alt="delete">
+        </button>
     </div>
 </template>
 

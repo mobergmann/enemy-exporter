@@ -5,3 +5,10 @@ export function addButton() {
     const clone = template.content.cloneNode(true);
     container.appendChild(clone);
 }
+
+export function deleteAttribute(node) {
+    let elem = node.closest(".in-attribute-container");
+    if (elem) {
+        elem.remove();
+    }
+}

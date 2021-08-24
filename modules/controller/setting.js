@@ -1,4 +1,4 @@
-import {appendAttributeInput} from "./index_controller.js";
+import {appendAttributeInput} from "./index.js";
 
 
 /**

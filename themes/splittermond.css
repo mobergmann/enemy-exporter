@@ -1,0 +1,66 @@
+#export {
+    display: flex;
+    flex-direction: column;
+
+    padding: 1rem;
+
+    font-family: cursive;
+}
+
+
+
+#export .export-head {
+}
+
+#export .export-head .export-name {
+    font-size: 2rem;
+    margin: 0;
+}
+
+
+#export .export-body {
+    display: flex;
+    flex-direction: row;
+
+    margin: 1rem 0;
+}
+
+#export .export-body .export-image {
+    width: 10rem;
+}
+
+#export .export-body .export-description {
+    margin-left: 1rem;
+    font-size: 1.25rem;
+    line-height: 1.8rem;
+}
+
+
+#export .export-attributes {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    margin: 1rem 0;
+}
+
+#export .export-attributes .attribute-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 6rem;
+    text-align: center;
+}
+
+#export .export-attributes .attribute-container .attribute-key {
+    border: 1px #00c0f3 solid;
+    background-color: #abe1fa;
+    font-weight: bold;
+    padding: 0.25rem;
+}
+
+#export .export-attributes .attribute-container .attribute-value {
+    border: 1px #00c0f3 solid;
+    background-color: #edf1f4;
+    padding: 0.25rem;
+}

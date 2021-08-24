@@ -8,9 +8,8 @@ body {
     min-height: 100vh;
 }
 
-article {
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+fieldset {
+    margin: 3rem 0;
 }
 
 footer {
@@ -22,6 +21,9 @@ footer {
 
     position: relative;
     bottom: 0;
+
+    background-color: #333333;
+    color: #ffffff;
 }
 
 footer a {

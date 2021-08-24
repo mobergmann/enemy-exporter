@@ -6,8 +6,7 @@
     <title>Tabletop RPG - Enemy Maker</title>
     <link rel="stylesheet" href="index.css">
 
-    <link rel="stylesheet" href="themes/base.css">
-<!--    <link id="setting-stylesheet" rel="stylesheet">-->
+    <link id="setting-stylesheet" rel="stylesheet" href="themes/default.css">
 </head>
 <body>
 
@@ -15,15 +14,17 @@
 
 <!--Registering Button Clicks-->
 <script type="module">
+    import {appendAttributeInput, removeAttributeInput} from "./modules/controller/index.js";
+    import {changeSetting} from "./modules/controller/setting.js";
+    import {changeStyle} from "./modules/controller/style.js";
     import {generateSheet, saveSheet} from './modules/exporter.js';
-    import {appendAttributeInput, removeAttributeInput} from "./modules/index_controller.js";
-    import {changeSetting} from "./modules/setting_controller.js";
 
-    window.generateSheet = generateSheet;
-    window.saveSheet = saveSheet;
     window.appendAttributeInput = appendAttributeInput;
-    window.removeAttributeInput = removeAttributeInput;
     window.changeSetting = changeSetting;
+    window.changeStyle = changeStyle;
+    window.generateSheet = generateSheet;
+    window.removeAttributeInput = removeAttributeInput;
+    window.saveSheet = saveSheet;
 </script>
 
 
@@ -32,32 +33,68 @@
     <p>Enter the statistics of the Enemy and export it as an image.</p>
 </header>
 
-<!-- Input -->
 <article id="input">
+
+    <!--Meta-->
+    <fieldset>
+        <legend>Meta</legend>
+
+        <!--Setting-->
+        <form action="javascript:void(0);">
+            <fieldset>
+                <legend>Setting</legend>
+
+                <label>
+                    Setting
+                    <select id="input-setting">
+                        <option value="default">Default</option>
+                        <optgroup label="Predefined">
+                            <option value="splittermond">Splittermond</option>
+                        </optgroup>
+                        <option value="custom">Custom</option>
+                    </select>
+                </label>
+
+                <label>
+                    Custom Setting File
+                    <input type="file" accept="application/json" id="input-setting-config-file">
+                </label>
+
+                <input type="submit" value="Load" onclick="changeSetting()">
+            </fieldset>
+        </form>
+
+        <!--Style-->
+        <form action="javascript:void(0);">
+            <fieldset>
+                <legend>Style</legend>
+
+                <label>
+                    Style
+                    <select id="input-style">
+                        <option value="default">Default</option>
+                        <optgroup label="Predefined">
+                            <option value="splittermond">Splittermond</option>
+                        </optgroup>
+<!--                        <option value="custom">Custom</option>-->
+                    </select>
+                </label>
+
+<!--                <label>-->
+<!--                    Custom Stylesheet-->
+<!--                    <input type="file" accept="text/css" id="input-style-file">-->
+<!--                </label>-->
+
+                <input type="submit" value="Load" onclick="changeStyle()">
+            </fieldset>
+        </form>
+    </fieldset>
+
+    <!--Enemy-->
     <form action="javascript:void(0);">
         <fieldset>
-            <legend>Setting</legend>
-            <label>
-                Setting
-                <select id="input-setting">
-                    <option value="default">Default</option>
-                    <option value="splittermond">Splittermond</option>
-                    <option value="custom">Custom</option>
-                </select>
-            </label>
+            <legend>Enemy</legend>
 
-            <label>
-                Custom Setting File
-                <input type="file" accept="application/JSON" id="input-setting-config-file">
-            </label>
-
-            <input type="submit" value="Apply" onclick="changeSetting()">
-        </fieldset>
-    </form>
-
-    <form action="javascript:void(0);">
-        <fieldset>
-            <legend>Input</legend>
             <div>
                 <label>
                     Name
@@ -84,7 +121,7 @@
 
         <div>
             <input type="submit" value="Export" onclick="generateSheet()">
-<!--            <input type="reset">-->
+            <!--<input type="reset">-->
         </div>
     </form>
 </article>
@@ -93,20 +130,26 @@
 
 <!--Export Container-->
 <article>
-    <fieldset>
-        <legend>Export</legend>
-        <div id="export"></div>
-    </fieldset>
+    <h1>Export</h1>
+    <div id="export"></div>
     <input type="button" value="Save" onclick="saveSheet()">
 </article>
 
-<!-- Templates -->
+<!--Footer-->
+<footer>
+    <p> Follow this Project on <a href="https://github.com/mobergmann/tabletop-rpg-enemy-exporter">GitHub</a></p>
+    <p><a href="about.html">About</a></p>
+</footer>
+
+
+<!--Templates-->
 <template id="template-in-attribute">
     <div class="in-attribute-container">
         <label>
             Key
             <input class="in-attribute-key" type="text" placeholder="Key">
         </label>
+
         <label>
             Value
             <input class="in-attribute-value" type="text" placeholder="Value">
@@ -121,13 +164,14 @@
 <template id="t-export">
     <div class="export-head">
         <h1 class="export-name"></h1>
-        <p class="export-description"></p>
     </div>
 
     <div class="export-body">
         <img src="" class="export-image">
-        <div class="export-attributes"></div>
+        <div class="export-description"></div>
     </div>
+
+    <div class="export-attributes"></div>
 </template>
 
 <template id="t-export-attribute">
@@ -136,12 +180,6 @@
         <div class="attribute-value"></div>
     </div>
 </template>
-
-
-<footer>
-    <p> Follow this Project on <a href="https://github.com/mobergmann/tabletop-rpg-enemy-exporter">GitHub</a></p>
-    <p><a href="about.html">About</a></p>
-</footer>
 
 </body>
 </html>

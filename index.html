@@ -7,30 +7,54 @@
     <link rel="stylesheet" href="index.css">
 
     <link rel="stylesheet" href="themes/base.css">
+<!--    <link id="setting-stylesheet" rel="stylesheet">-->
 </head>
 <body>
 
-<script src="include/html2canvas.min.js"></script>
+<script type="text/javascript" src="modules/include/html2canvas.min.js"></script>
 
 <!--Registering Button Clicks-->
 <script type="module">
-    import {generateSheet,saveSheet} from './modules/exporter.js';
-    import {addButton,deleteAttribute} from "./modules/index_controller.js";
+    import {generateSheet, saveSheet} from './modules/exporter.js';
+    import {appendAttributeInput, removeAttributeInput} from "./modules/index_controller.js";
+    import {changeSetting} from "./modules/setting_controller.js";
 
     window.generateSheet = generateSheet;
     window.saveSheet = saveSheet;
-    window.addButton = addButton;
-    window.deleteAttribute = deleteAttribute;
+    window.appendAttributeInput = appendAttributeInput;
+    window.removeAttributeInput = removeAttributeInput;
+    window.changeSetting = changeSetting;
 </script>
 
 
 <header>
-    <h1>Tabletop RPG - Enemy Maker</h1>
+    <h1>Tabletop RPG - Enemy Exporter</h1>
     <p>Enter the statistics of the Enemy and export it as an image.</p>
 </header>
 
 <!-- Input -->
 <article id="input">
+    <form action="javascript:void(0);">
+        <fieldset>
+            <legend>Setting</legend>
+            <label>
+                Setting
+                <select id="input-setting">
+                    <option value="default">Default</option>
+                    <option value="splittermond">Splittermond</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </label>
+
+            <label>
+                Custom Setting File
+                <input type="file" accept="application/JSON" id="input-setting-config-file">
+            </label>
+
+            <input type="submit" value="Apply" onclick="changeSetting()">
+        </fieldset>
+    </form>
+
     <form action="javascript:void(0);">
         <fieldset>
             <legend>Input</legend>
@@ -53,14 +77,14 @@
 
             <fieldset>
                 <legend>Attributes</legend>
-                <input type="button" value="+" onclick="addButton()">
+                <input type="button" value="+" onclick="appendAttributeInput()">
                 <div id="in_attributes"></div>
             </fieldset>
         </fieldset>
 
         <div>
             <input type="submit" value="Export" onclick="generateSheet()">
-            <input type="reset">
+<!--            <input type="reset">-->
         </div>
     </form>
 </article>
@@ -88,7 +112,7 @@
             <input class="in-attribute-value" type="text" placeholder="Value">
         </label>
 
-        <button onclick="deleteAttribute(this)">
+        <button onclick="removeAttributeInput(this)">
             <img src="images/icons/delete.svg" alt="delete">
         </button>
     </div>
@@ -115,7 +139,7 @@
 
 
 <footer>
-    <p> Follow this Project on <a href="https://github.com/mobergmann/tabletop-rpg-enemy-exporter">GitGub</a></p>
+    <p> Follow this Project on <a href="https://github.com/mobergmann/tabletop-rpg-enemy-exporter">GitHub</a></p>
     <p><a href="about.html">About</a></p>
 </footer>
 

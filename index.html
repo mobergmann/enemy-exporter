@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<script src="modules/include/html2canvas.min.js"></script>
+<script type="text/javascript" src="modules/include/html2canvas.min.js"></script>
 
 <!--Registering Button Clicks-->
 <script type="module">
@@ -28,7 +28,7 @@
 
 
 <header>
-    <h1>Tabletop RPG - Enemy Maker</h1>
+    <h1>Tabletop RPG - Enemy Exporter</h1>
     <p>Enter the statistics of the Enemy and export it as an image.</p>
 </header>
 
@@ -48,7 +48,7 @@
 
             <label>
                 Custom Setting File
-                <input type="file">
+                <input type="file" accept="application/JSON" id="input-setting-config-file">
             </label>
 
             <input type="submit" value="Apply" onclick="changeSetting()">
@@ -139,7 +139,7 @@
 
 
 <footer>
-    <p> Follow this Project on <a href="https://github.com/mobergmann/tabletop-rpg-enemy-exporter">GitGub</a></p>
+    <p> Follow this Project on <a href="https://github.com/mobergmann/tabletop-rpg-enemy-exporter">GitHub</a></p>
     <p><a href="about.html">About</a></p>
 </footer>
 

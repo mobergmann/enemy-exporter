@@ -1,11 +1,4 @@
 function changeStyle() {
-    console.log("Hello World");
-    let callback = (style_url) => {
-        let export_stylesheet = document.getElementById("setting-stylesheet");
-        export_stylesheet.href = style_url;
-    };
-
-
     let choice = document.getElementById("input-style").value.toLowerCase();
     switch (choice) {
         case "custom":
@@ -17,14 +10,18 @@ function changeStyle() {
                 return;
             }
 
-            // todo
-            alert("TODO");
+            // todo create style element and add css file content
+            //  may be harmful
 
             break;
 
         default:
             let url = "themes/" + choice + ".css";
-            callback(url);
+            let export_stylesheet = document.getElementById("setting-stylesheet");
+            export_stylesheet.href = url;
+
+            // todo remove style element
+
             break;
     }
 }

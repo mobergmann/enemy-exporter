@@ -1,22 +1,22 @@
-function set_style_url(style_url) {
-    let export_stylesheet = document.getElementById("setting-stylesheet");
-    export_stylesheet.href = style_url;
+function set_style_url(url) {
+    let meta = document.getElementById("setting-stylesheet");
+    meta.href = url;
 }
 
-function set_style(css_text) {
-    let style_container = document.getElementById("setting-container");
-    style_container.innerHTML = css_text;
+function set_style_content(style) {
+    let container = document.getElementById("setting-style-container");
+    container.innerHTML = style;
+}
+
+function reset_style() {
+    set_style_url(null);
+    set_style_content(null);
 }
 
 function changeStyle() {
-    // reset previously set styles
-    set_style_url(null);
-    set_style(null);
-
-    let choice = document.getElementById("input-style").value.toLowerCase();
+    let choice = document.getElementById("input-style").value;
     switch (choice) {
         case "custom":
-            // get file from input
             let file = document.getElementById("input-style-file").files[0];
             if (!file) {
                 alert("You need to upload a JSON-File, which defines all Attributes.\n\n" +
@@ -25,18 +25,20 @@ function changeStyle() {
                 return;
             }
 
-            // set file input as style
+            reset_style();
+
+            // set style to file content
             let reader = new FileReader();
-            reader.onload = function(e) {
-                let contents = e.target.result;
-                set_style(contents);
-            };
-            // read file text
+            reader.onload = function () {
+                let content = reader.result;
+                set_style_content(content);
+            }
             reader.readAsText(file);
 
             break;
 
         default:
+            reset_style();
             let url = "themes/" + choice + ".css";
             set_style_url(url);
             break;

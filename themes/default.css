@@ -64,3 +64,21 @@
     background-color: lightgray;
     padding: 0.25rem;
 }
+
+
+#export .export-others {
+    display: flex;
+    flex-direction: column;
+}
+
+#export .export-others .export-other-container {
+    display: flex;
+    flex-direction: row;
+}
+
+#export .export-others .other-key {
+    font-weight: bold;
+}
+
+#export .export-others .other-value {
+}

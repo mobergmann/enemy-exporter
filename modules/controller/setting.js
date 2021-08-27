@@ -1,4 +1,4 @@
-import {appendAttributeInput} from "./index.js";
+import {appendAttributeInput, appendOtherInput} from "./index.js";
 
 
 /**
@@ -8,18 +8,18 @@ import {appendAttributeInput} from "./index.js";
  * @param error_callback error callback function
  * @private
  */
-function _parseWeb(url, callback, error_callback) {
+function parseWeb(url, callback, error_callback) {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
-    xhr.responseType = 'text';
+    xhr.responseType = 'application/json'; // todo text
 
     // parse file content to array
     xhr.onload = () => {
         let status = xhr.status;
         if (status === 200) {
             try {
-                let attributes = JSON.parse(xhr.response);
-                callback(attributes);
+                let response = JSON.parse(xhr.response);
+                callback(response);
             } catch (e) {
                 error_callback(e.message);
             }
@@ -42,7 +42,7 @@ function _parseWeb(url, callback, error_callback) {
  * @param error_callback error callback function
  * @private
  */
-function _parseFile(file, callback, error_callback) {
+function parseFile(file, callback, error_callback) {
     let reader = new FileReader();
 
     // parse file content to array
@@ -82,9 +82,15 @@ function changeSetting() {
     let attribute_option = document.getElementById("input-setting").value.toLowerCase();
 
 
-    let callback = (attribute_array) => {
-        attribute_array.forEach(attribute => {
-            appendAttributeInput(attribute);
+    let callback = (response) => {
+        let attribute_array = response.attributes;
+        attribute_array.forEach(a => {
+            appendAttributeInput(a);
+        });
+
+        let other_array = response.others;
+        other_array.forEach(o => {
+            appendOtherInput(o);
         });
     };
 
@@ -110,12 +116,12 @@ function changeSetting() {
                 return;
             }
 
-            _parseFile(file, callback, error_callback);
+            parseFile(file, callback, error_callback);
             break;
 
         default:
             let url = "settings/" + attribute_option + ".json";
-            _parseWeb(url, callback, error_callback);
+            parseWeb(url, callback, error_callback);
             break;
     }
 }

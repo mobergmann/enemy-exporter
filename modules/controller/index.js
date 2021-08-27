@@ -1,5 +1,6 @@
 function appendAttributeInput(attribute = null) {
     let container = document.getElementById("in_attributes");
+
     let template = document.getElementById("template-in-attribute");
     let clone = template.content.cloneNode(true);
 
@@ -19,11 +20,17 @@ function removeParent(base_node, parent_node_class) {
     }
 }
 
-function appendOtherInput() {
+function appendOtherInput(other = null) {
     let container = document.getElementById("container-other-inputs");
 
     let template = document.getElementById("template-input-other");
     let clone = template.content.cloneNode(true);
+
+    if (other) {
+        let key_input = clone.querySelector(".input-other-key")
+        key_input.value = other;
+        key_input.disabled = true;
+    }
 
     container.appendChild(clone);
 }

@@ -16,7 +16,7 @@
 
 <!--Registering Button Clicks-->
 <script type="module">
-    import {appendAttributeInput, removeAttributeInput} from "./modules/controller/index.js";
+    import {appendAttributeInput, removeParent, appendOtherInput} from "./modules/controller/index.js";
     import {changeSetting} from "./modules/controller/setting.js";
     import {changeStyle} from "./modules/controller/style.js";
     import {generateSheet, saveSheet} from './modules/exporter.js';
@@ -25,8 +25,9 @@
     window.changeSetting = changeSetting;
     window.changeStyle = changeStyle;
     window.generateSheet = generateSheet;
-    window.removeAttributeInput = removeAttributeInput;
+    window.removeParent = removeParent;
     window.saveSheet = saveSheet;
+    window.appendOtherInput = appendOtherInput;
 </script>
 
 
@@ -97,7 +98,8 @@
         <fieldset>
             <legend>Enemy</legend>
 
-            <div>
+            <!--Meta Values-->
+            <fieldset>
                 <label>
                     Name
                     <input type="text" placeholder="Name" id="in_name">
@@ -112,12 +114,21 @@
                     Image
                     <input type="file" accept="image/*" id="in_image">
                 </label>
-            </div>
+            </fieldset>
 
+            <!--Attributes-->
             <fieldset>
                 <legend>Attributes</legend>
                 <input type="button" value="+" onclick="appendAttributeInput()">
                 <div id="in_attributes"></div>
+            </fieldset>
+
+            <!--Other Values-->
+            <fieldset>
+                <legend>Other Values</legend>
+                <input type="button" value="+" onclick="appendOtherInput()">
+
+                <div id="container-other-inputs"></div>
             </fieldset>
         </fieldset>
 
@@ -144,26 +155,57 @@
 </footer>
 
 
+
 <!--Templates-->
 <template id="template-in-attribute">
     <div class="in-attribute-container">
         <label>
-            Key
             <input class="in-attribute-key" type="text" placeholder="Key">
         </label>
 
         <label>
-            Value
             <input class="in-attribute-value" type="text" placeholder="Value">
         </label>
 
-        <button onclick="removeAttributeInput(this)">
+        <button onclick="removeParent(this, 'in-attribute-container')">
             <img src="images/icons/delete.svg" alt="delete">
         </button>
     </div>
 </template>
 
-<template id="t-export">
+<template id="t-export-attribute">
+    <div class="attribute-container">
+        <div class="attribute-key"></div>
+        <div class="attribute-value"></div>
+    </div>
+</template>
+
+
+<template id="template-input-other">
+    <div class="input-other-container">
+        <label>
+            <input type="text" placeholder="Key" class="input-other-key">
+        </label>
+
+        <label>
+            <input type="text" placeholder="Value" class="input-other-value">
+        </label>
+
+        <button onclick="removeParent(this, 'input-other-container')">
+            <img src="images/icons/delete.svg" alt="delete">
+        </button>
+    </div>
+</template>
+
+<template id="template-export-other">
+    <div class="export-other-container">
+        <div class="other-key"></div>:&nbsp;
+        <div class="other-value"></div>
+    </div>
+</template>
+
+
+<template id="template-export">
     <div class="export-head">
         <h1 class="export-name"></h1>
     </div>
@@ -174,13 +216,8 @@
     </div>
 
     <div class="export-attributes"></div>
-</template>
 
-<template id="t-export-attribute">
-    <div class="attribute-container">
-        <div class="attribute-key"></div>
-        <div class="attribute-value"></div>
-    </div>
+    <div class="export-others"></div>
 </template>
 
 </body>

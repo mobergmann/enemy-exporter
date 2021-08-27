@@ -12,13 +12,21 @@ function appendAttributeInput(attribute = null) {
     container.appendChild(clone);
 }
 
-function removeAttributeInput(node) {
-    let elem = node.closest(".in-attribute-container");
+function removeParent(base_node, parent_node_class) {
+    let elem = base_node.closest("." + parent_node_class);
     if (elem) {
         elem.remove();
     }
 }
 
+function appendOtherInput() {
+    let container = document.getElementById("container-other-inputs");
+
+    let template = document.getElementById("template-input-other");
+    let clone = template.content.cloneNode(true);
+
+    container.appendChild(clone);
+}
 
 
-export {appendAttributeInput, removeAttributeInput};
+export {appendAttributeInput, removeParent, appendOtherInput};

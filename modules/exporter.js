@@ -5,12 +5,20 @@ class Attribute {
     }
 }
 
+class Other {
+    constructor(key, value) {
+        this.key = key;
+        this.value = value;
+    }
+}
+
 class Sheet {
-    constructor(name, description, image, attributes) {
+    constructor(name, description, image, attributes, others) {
         this.name = name;
         this.description = description;
         this.image = image;
         this.attributes = attributes;
+        this.others = others;
     }
 }
 
@@ -25,7 +33,7 @@ function readInput() {
     sheet.attributes = [];
     let attribute_keys = document.querySelectorAll(".in-attribute-key");
     let attribute_values = document.querySelectorAll(".in-attribute-value");
-    for (let i = 0; i < attribute_values.length; ++i) {
+    for (let i = 0; i < attribute_keys.length; ++i) {
         const key = attribute_keys[i].value;
         const value = attribute_values[i].value;
 
@@ -33,11 +41,23 @@ function readInput() {
         sheet.attributes.push(a);
     }
 
+    // others
+    sheet.others = [];
+    let other_keys = document.querySelectorAll(".input-other-key");
+    let other_values = document.querySelectorAll(".input-other-value");
+    for (let i = 0; i < other_keys.length; ++i) {
+        const key = other_keys[i].value;
+        const value = other_values[i].value;
+
+        let o = new Other(key, value);
+        sheet.others.push(o);
+    }
+
     return sheet;
 }
 
 function writeDisplay(sheet) {
-    const template = document.getElementById("t-export");
+    const template = document.getElementById("template-export");
     const elem = template.content.cloneNode(true);
 
     // name
@@ -50,12 +70,11 @@ function writeDisplay(sheet) {
 
     // image
     const imageElem = elem.querySelector(".export-image");
-    // imageElem.src = sheet.image.src;
     if (sheet.image) {
         const fileReader = new FileReader();
         fileReader.readAsDataURL(sheet.image);
         fileReader.addEventListener("load", function () {
-            imageElem.src = this.result; //'<img src="' +  + '" />';
+            imageElem.src = this.result;
         });
     }
 
@@ -74,10 +93,25 @@ function writeDisplay(sheet) {
         attributesContainer.appendChild(clone);
     });
 
+    // others
+    const othersContainer = elem.querySelector(".export-others");
+    sheet.others.forEach(other => {
+        const oTemplate = document.getElementById("template-export-other");
+        const clone = oTemplate.content.cloneNode(true);
+
+        const keyElem = clone.querySelector(".other-key");
+        keyElem.innerHTML = other.key;
+
+        const valueElem = clone.querySelector(".other-value");
+        valueElem.innerHTML = other.value;
+
+        othersContainer.appendChild(clone);
+    });
+
     return elem;
 }
 
-export function generateSheet() {
+function generateSheet() {
     // parse input
     const input = readInput();
 
@@ -90,19 +124,22 @@ export function generateSheet() {
     exp.appendChild(elem);
 }
 
-export function saveSheet() {
+function saveSheet() {
     const elem = document.getElementById("export");
 
-    html2canvas(elem).then(function(canvas) {
+    html2canvas(elem).then(function (canvas) {
         // source https://stackoverflow.com/a/58652379/11186407
         let downloadLink = document.createElement('a');
         downloadLink.setAttribute('download', 'CanvasAsImage.png');
 
-        canvas.toBlob(function(blob) {
+        canvas.toBlob(function (blob) {
             let url = URL.createObjectURL(blob);
             downloadLink.setAttribute('href', url);
             downloadLink.click();
         });
     });
 }
+
+
+export {generateSheet, saveSheet};
 

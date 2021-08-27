@@ -1,18 +1,29 @@
-[
-    "AUS",
-    "BEW",
-    "INT",
-    "KON",
-    "MYS",
-    "STÄ",
-    "VER",
-    "WIL",
-    "GK",
-    "GSW",
-    "LP",
-    "FO",
-    "VTD",
-    "SR",
-    "KW",
-    "GW"
-]
+{
+    "attributes": [
+        "AUS",
+        "BEW",
+        "INT",
+        "KON",
+        "MYS",
+        "STÄ",
+        "VER",
+        "WIL",
+        "GK",
+        "GSW",
+        "LP",
+        "FO",
+        "VTD",
+        "SR",
+        "KW",
+        "GW"
+    ],
+    "others": [
+        "Typus",
+        "Monstergrad",
+        "Fertigkeiten",
+        "Zauber",
+        "Meisterschaften",
+        "Merkmale",
+        "Beute"
+    ]
+}
